@@ -14,7 +14,7 @@
 #>
     [CmdletBinding()]
     Param($Module, $RepoUrl)
-    $summaryTable = @'
+    $summaryTable = @"
 # PSDiff
 PowerShell wrapper + additional functionality around the diff part of https://github.com/google/diff-match-patch
 
@@ -27,7 +27,7 @@ The PSDiff module exports the following functions:
 
 | Function | Synopsis | Documentation |
 | --- | --- | --- |
-'@
+"@
     Import-Module platyps
     $htCheck = @{ }
     Import-Module C:\Scripts\ps1\PSDiff\PSDiff\PSDiff.psm1
@@ -50,7 +50,7 @@ The PSDiff module exports the following functions:
         }
     }
     $docFolder = "$(Split-Path (Get-Module $Module)[0].Path)\docs"
-    $summaryTable | Set-Content "$(Split-Path $docFolder -Parent)/README.md" -Force
+    $summaryTable | Set-Content "$(Split-Path(Split-Path $docFolder -Parent)-Parent)/README.md" -Force
     $documenation = New-MarkdownHelp -Module $Module -OutputFolder $docFolder -Force
     foreach ($file in (dir $docFolder)) {
         $text = (Get-Content -Path $file.FullName | Select-Object -Skip 6) | Set-Content $file.FullName -Force
